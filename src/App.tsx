@@ -4,17 +4,47 @@ import Guitar from './components/Guitar'
 import Header from './components/Header'
 import { db, dbTypes } from './data/db'
 
+export type cartType = {
+    id: number;
+    image: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
+
 function App() {
 
     const [data, setData] = useState<dbTypes[]>(db) 
+    const [carts, setCart] = useState<cartType[]>([])
+
+    const MAX_ITEMS = 10
+    
+    const addToCart = (item : dbTypes) => {
+        const index = carts.findIndex(cart => cart.id === item.id)
+        if(index >= 0) {
+            if(carts[index].quantity < MAX_ITEMS ) {
+                const updatedCart = [...carts]
+                updatedCart[index].quantity++
+                setCart(updatedCart)
+                console.log(carts)
+            }
+        }
+        else{
+            setCart([...carts, {...item, quantity: 1}])
+        }
+       
+    }
 
   return (
     <>
-    <Header />       
+    <Header
+        carts={carts}
+    />       
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
         <Guitar 
             data={data}
+            addToCart={addToCart}
         />
         
     </main>

@@ -1,5 +1,10 @@
+import { cartType } from "../App"
 
-export default function Header() {
+type HeaderProps = {
+  carts : cartType[]
+}
+
+export default function Header({carts}: HeaderProps) {
   return (
     <header className="py-5 header">
       <div className="container-xl">
