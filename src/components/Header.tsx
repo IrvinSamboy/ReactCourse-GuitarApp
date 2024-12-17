@@ -3,9 +3,10 @@ import { cartType } from "../App"
 type HeaderProps = {
   carts: cartType[];
   decreaseToCart: (item: cartType) => void
+  increaseToCart: (item: cartType) => void
 }
 
-export default function Header({ carts, decreaseToCart }: HeaderProps) {
+export default function Header({ carts, decreaseToCart, increaseToCart }: HeaderProps) {
   return (
     <header className="py-5 header">
       <div className="container-xl">
@@ -68,6 +69,7 @@ export default function Header({ carts, decreaseToCart }: HeaderProps) {
                                     </td>
                                     <td>
                                       <button
+                                        onClick={() => increaseToCart(item)}
                                         className="btn btn-danger"
                                         type="button"
                                       >

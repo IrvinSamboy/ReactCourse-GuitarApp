@@ -51,12 +51,23 @@ function App() {
         }
     }
 
+    const increaseToCart = (item: cartType) => {
+        const index = carts.findIndex(cart => cart.id === item.id)
+        if (index >= 0) {
+            const cartDecreased = [...carts]
+            if(cartDecreased[index].quantity < 10){
+                cartDecreased[index].quantity++
+                setCart(cartDecreased)
+            }
+        }
+    }
 
     return (
         <>
             <Header
                 carts={carts}
                 decreaseToCart={decreaseToCart}
+                increaseToCart={increaseToCart}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
