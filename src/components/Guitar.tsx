@@ -1,5 +1,4 @@
 import { dbTypes } from "../data/db"
-import { cartType } from "../App"
 
 type GuitarProps = {
     data: dbTypes[]
