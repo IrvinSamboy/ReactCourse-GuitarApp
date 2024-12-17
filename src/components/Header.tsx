@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { cartType } from "../App"
 
 type HeaderProps = {
@@ -5,6 +6,7 @@ type HeaderProps = {
   decreaseToCart: (item: cartType) => void
   increaseToCart: (item: cartType) => void
   deleteToCart: (item: cartType) => void
+  cartTotal: (item: cartType[]) => number
 }
 
 export default function Header(
@@ -12,8 +14,16 @@ export default function Header(
     carts,
     decreaseToCart,
     increaseToCart,
-    deleteToCart
+    deleteToCart,
+    cartTotal
   }: HeaderProps) {
+    
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+      setTotal(cartTotal(carts))
+    }, [carts])
+
   return (
     <header className="py-5 header">
       <div className="container-xl">
@@ -88,7 +98,7 @@ export default function Header(
                                 ))}
                             </tbody>
                           </table>
-                          <p className="text-end">Total pagar: <span className="fw-bold">$899</span></p>
+                          <p className="text-end">Total pagar: <span className="fw-bold">${total}</span></p>
                           <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
                         </>
                     }

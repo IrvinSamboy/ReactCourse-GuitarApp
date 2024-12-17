@@ -68,6 +68,10 @@ function App() {
         }
     }
 
+    const cartTotal = (carts : cartType[]) : number => {
+        return carts.reduce((acumulator, currentValue) => acumulator + (currentValue.price*currentValue.quantity), 0)
+    }
+
     return (
         <>
             <Header
@@ -75,6 +79,7 @@ function App() {
                 decreaseToCart={decreaseToCart}
                 increaseToCart={increaseToCart}
                 deleteToCart={deleteToCart}
+                cartTotal= {cartTotal}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
