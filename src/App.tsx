@@ -60,12 +60,21 @@ function App() {
         }
     }
 
+    const deleteToCart = (item: cartType) => {
+        const index = carts.findIndex(cart => cart.id === item.id)
+        if (index >= 0) {
+            const cartDeleted = carts.filter(cart => item.id !== cart.id)
+            setCart(cartDeleted)
+        }
+    }
+
     return (
         <>
             <Header
                 carts={carts}
                 decreaseToCart={decreaseToCart}
                 increaseToCart={increaseToCart}
+                deleteToCart={deleteToCart}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>

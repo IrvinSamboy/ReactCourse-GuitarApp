@@ -4,9 +4,16 @@ type HeaderProps = {
   carts: cartType[];
   decreaseToCart: (item: cartType) => void
   increaseToCart: (item: cartType) => void
+  deleteToCart: (item: cartType) => void
 }
 
-export default function Header({ carts, decreaseToCart, increaseToCart }: HeaderProps) {
+export default function Header(
+  {
+    carts,
+    decreaseToCart,
+    increaseToCart,
+    deleteToCart
+  }: HeaderProps) {
   return (
     <header className="py-5 header">
       <div className="container-xl">
@@ -61,6 +68,7 @@ export default function Header({ carts, decreaseToCart, increaseToCart }: Header
                                       </button>
                                       {item.quantity}
                                       <button
+                                        onClick={() => increaseToCart(item)}
                                         type="button"
                                         className="btn btn-dark"
                                       >
@@ -69,7 +77,7 @@ export default function Header({ carts, decreaseToCart, increaseToCart }: Header
                                     </td>
                                     <td>
                                       <button
-                                        onClick={() => increaseToCart(item)}
+                                        onClick={() => deleteToCart(item)}
                                         className="btn btn-danger"
                                         type="button"
                                       >
