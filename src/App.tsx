@@ -6,14 +6,16 @@ import { db, dbTypes } from './data/db'
 
 function App() {
 
-    const [data, setData] = useState<dbTypes>(db) 
+    const [data, setData] = useState<dbTypes[]>(db) 
 
   return (
     <>
     <Header />       
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
-        <Guitar />
+        <Guitar 
+            data={data}
+        />
         
     </main>
 
