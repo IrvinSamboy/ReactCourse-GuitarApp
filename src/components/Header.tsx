@@ -7,6 +7,7 @@ type HeaderProps = {
   increaseToCart: (item: cartType) => void
   deleteToCart: (item: cartType) => void
   cartTotal: (item: cartType[]) => number
+  savingCartLocalStorage: (item: cartType[]) => void
 }
 
 export default function Header(
@@ -15,12 +16,14 @@ export default function Header(
     decreaseToCart,
     increaseToCart,
     deleteToCart,
-    cartTotal
+    cartTotal,
+    savingCartLocalStorage
   }: HeaderProps) {
     
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
+      savingCartLocalStorage(carts)
       setTotal(cartTotal(carts))
     }, [carts])
 

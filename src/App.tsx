@@ -14,8 +14,12 @@ export type cartType = {
 
 function App() {
 
+    const getData = () => {
+        return JSON.parse(localStorage.getItem("cart")!) || []
+    }
+
     const [data, _setData] = useState<dbTypes[]>(db)
-    const [carts, setCart] = useState<cartType[]>([])
+    const [carts, setCart] = useState<cartType[]>(getData)
 
     const MAX_ITEMS = 10
 
@@ -72,6 +76,10 @@ function App() {
         return carts.reduce((acumulator, currentValue) => acumulator + (currentValue.price*currentValue.quantity), 0)
     }
 
+    const savingCartLocalStorage = (carts : cartType[]) => {
+        localStorage.setItem('cart', JSON.stringify(carts))
+    }
+
     return (
         <>
             <Header
@@ -79,7 +87,8 @@ function App() {
                 decreaseToCart={decreaseToCart}
                 increaseToCart={increaseToCart}
                 deleteToCart={deleteToCart}
-                cartTotal= {cartTotal}
+                cartTotal={cartTotal}
+                savingCartLocalStorage={savingCartLocalStorage}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
