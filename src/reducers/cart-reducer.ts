@@ -61,6 +61,37 @@ export const cartReducer = (
         }
     }
 
+    else if(type === 'decrease-to-cart') {
+        const index = cart.findIndex(item => item.id === payload.item.id)
+        if (index >= 0) {
+            const cartDecreased = [...cart]
+            cartDecreased[index].quantity--
+            if (cartDecreased[index].quantity === 0) {
+                const cartDelete = cart.filter(item => item.quantity >= 1)
+                returnState = {
+                    ...state,
+                    cart: cartDelete
+                }
+            }
+            else {
+                returnState = {
+                    ...state,
+                    cart: cartDecreased
+                }
+            }
+        }
+    }
+    
+    else if(type === 'delete-to-cart') {
+        const index = cart.findIndex(item => item.id === payload.item.id)
+        if (index >= 0) {
+            const cartDeleted = cart.filter(item => payload.item.id !== item.id)
+            returnState = {
+                ...state,
+                cart: cartDeleted
+            }
+        }
+    }
 
     return returnState
 }
