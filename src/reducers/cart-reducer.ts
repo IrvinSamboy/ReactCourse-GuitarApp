@@ -47,7 +47,20 @@ export const cartReducer = (
         }
     }
 
-    
+    else if(type === 'increase-to-cart') {
+        const index = cart.findIndex(item => item.id === payload.item.id)
+        if (index >= 0) {
+            const cartDecreased = [...cart]
+            if(cartDecreased[index].quantity < 10){
+                cartDecreased[index].quantity++
+                returnState = {
+                    ...state,
+                    cart: cartDecreased
+                }
+            }
+        }
+    }
+
 
     return returnState
 }
