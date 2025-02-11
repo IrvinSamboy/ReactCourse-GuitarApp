@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { cartType } from "../App"
 import { cartActions } from "../reducers/cart-reducer";
+import { cartType } from "../types/CartTypes";
 
 type HeaderProps = {
   carts: cartType[];

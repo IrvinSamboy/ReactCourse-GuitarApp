@@ -5,14 +5,6 @@ import Header from './components/Header'
 import { db, dbTypes } from './data/db'
 import { cartReducer, initialState } from './reducers/cart-reducer'
 
-export type cartType = {
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    quantity: number;
-}
-
 function App() {
     
     const [data] = useState<dbTypes[]>(db)

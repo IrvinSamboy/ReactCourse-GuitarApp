@@ -1,4 +1,4 @@
-import { cartType } from "../hooks/useCart"
+import { cartType } from "../types/CartTypes"
 
 export type cartActions =
     {type: 'add-to-cart', payload: {newCart : cartType }} |
