@@ -39,6 +39,7 @@ const useCart = () => {
             if (index >= 0) {
                 const cartDecreased = [...carts]
                 cartDecreased[index].quantity--
+                console.log(cartDecreased[index])
                 if (cartDecreased[index].quantity === 0) {
                     const cartDelete = carts.filter(item => item.quantity >= 1)
                     setCart(cartDelete)

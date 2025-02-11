@@ -44,7 +44,7 @@ export const cartReducer = (
         else {
             returnState = {
                 ...state,
-                cart: [...cart, { ...actions.payload.newCart, quantity: 1 }]
+                cart: [...cart, { ...actions.payload.newCart}]
             }
 
         }
