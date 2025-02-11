@@ -103,5 +103,7 @@ export const cartReducer = (
         }
     }
 
+    localStorage.setItem('cart', JSON.stringify(cart))
+
     return returnState
 }
