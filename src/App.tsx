@@ -5,6 +5,14 @@ import Header from './components/Header'
 import { db, dbTypes } from './data/db'
 import useCart from './hooks/useCart'
 
+export type cartType = {
+    id: number;
+    image: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
+
 function App() {
     
     const [data, _setData] = useState<dbTypes[]>(db)
