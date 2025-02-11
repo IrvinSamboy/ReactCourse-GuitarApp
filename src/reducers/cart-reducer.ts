@@ -19,13 +19,35 @@ export const cartReducer = (
     state: cartState,
     actions: cartActions
 ) => {
+    const MAX_ITEMS = 10
 
     const {type, payload} = actions
     const {cart} = state
 
     let returnState = state
 
+    if(type === 'add-to-cart') {
+        const index = cart.findIndex(item => item.id === payload.newCart.id)
+        if (index >= 0) {
+            if (cart[index].quantity < MAX_ITEMS) {
+                const updatedCart = [...cart]
+                updatedCart[index].quantity++
+                returnState = {
+                    ...state,
+                    cart: updatedCart
+                }
+            }
+        }
+        else {
+            returnState = {
+                ...state,
+                cart: [...cart, { ...payload.newCart, quantity: 1 }]
+            }
 
+        }
+    }
+
+    
 
     return returnState
 }
