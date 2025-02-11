@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import './App.css'
 import Guitar from './components/Guitar'
 import Header from './components/Header'
 import { db, dbTypes } from './data/db'
-import useCart from './hooks/useCart'
+import { cartReducer, initialState } from './reducers/cart-reducer'
 
 export type cartType = {
     id: number;
@@ -15,33 +15,22 @@ export type cartType = {
 
 function App() {
     
-    const [data, _setData] = useState<dbTypes[]>(db)
+    const [data] = useState<dbTypes[]>(db)
     
-    const {
-            carts, 
-            addToCart, 
-            decreaseToCart, 
-            increaseToCart, 
-            deleteToCart, 
-            cartTotal, 
-            savingCartLocalStorage
-        } = useCart()
-
+    const [state, dispatch] = useReducer(cartReducer, initialState)
+ 
     return (
         <>
             <Header
-                carts={carts}
-                decreaseToCart={decreaseToCart}
-                increaseToCart={increaseToCart}
-                deleteToCart={deleteToCart}
-                cartTotal={cartTotal}
-                savingCartLocalStorage={savingCartLocalStorage}
+                carts={state.cart}
+                dispatch={dispatch} 
+                total={state.total}            
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
                 <Guitar
                     data={data}
-                    addToCart={addToCart}
+                    dispatch={dispatch}
                 />
 
             </main>

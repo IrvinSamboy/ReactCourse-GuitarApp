@@ -1,11 +1,12 @@
 import { dbTypes } from "../data/db"
+import { cartActions } from "../reducers/cart-reducer"
 
 type GuitarProps = {
     data: dbTypes[]
-    addToCart: (item: dbTypes) => void
+  dispatch: React.Dispatch<cartActions>
 }
 
-export default function Guitar({ data, addToCart }: GuitarProps) {
+export default function Guitar({ data, dispatch }: GuitarProps) {
     return (
         <div className="row mt-5">
 
@@ -20,7 +21,7 @@ export default function Guitar({ data, addToCart }: GuitarProps) {
                             <p>{guitar.description}</p>
                             <p className="fw-black text-primary fs-3">${guitar.price}</p>
                             <button
-                                onClick={() => addToCart(guitar)}
+                                onClick={() => dispatch({type: 'add-to-cart', payload: {newCart: {...guitar, quantity: 1}}})}
                                 type="button"
                                 className="btn btn-dark w-100"
                             >Agregar al Carrito</button>

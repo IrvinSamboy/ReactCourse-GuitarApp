@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { cartType } from "../App"
+import { cartActions } from "../reducers/cart-reducer";
 
 type HeaderProps = {
   carts: cartType[];
-  decreaseToCart: (item: cartType) => void
-  increaseToCart: (item: cartType) => void
-  deleteToCart: (item: cartType) => void
-  cartTotal: (item: cartType[]) => number
-  savingCartLocalStorage: (item: cartType[]) => void
+  total: number;
+  dispatch: React.Dispatch<cartActions>
 }
 
 export default function Header(
   {
     carts,
-    decreaseToCart,
-    increaseToCart,
-    deleteToCart,
-    cartTotal,
-    savingCartLocalStorage
+    total,
+    dispatch
   }: HeaderProps) {
     
-    const [total, setTotal] = useState(0)
-
     useEffect(() => {
-      savingCartLocalStorage(carts)
-      setTotal(cartTotal(carts))
+      dispatch({type: 'get-total'})
     }, [carts])
 
   return (
@@ -73,7 +65,7 @@ export default function Header(
                                     </td>
                                     <td className="flex align-items-start gap-4">
                                       <button
-                                        onClick={() => decreaseToCart(item)}
+                                        onClick={() => dispatch({type: 'decrease-to-cart', payload: {item: item}})}
                                         type="button"
                                         className="btn btn-dark"
                                       >
@@ -81,7 +73,7 @@ export default function Header(
                                       </button>
                                       {item.quantity}
                                       <button
-                                        onClick={() => increaseToCart(item)}
+                                        onClick={() => dispatch({type: 'increase-to-cart', payload: {item: item}})}
                                         type="button"
                                         className="btn btn-dark"
                                       >
@@ -90,7 +82,7 @@ export default function Header(
                                     </td>
                                     <td>
                                       <button
-                                        onClick={() => deleteToCart(item)}
+                                        onClick={() => dispatch({type: 'delete-to-cart', payload: {item: item}})}
                                         className="btn btn-danger"
                                         type="button"
                                       >
