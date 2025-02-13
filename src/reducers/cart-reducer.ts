@@ -33,8 +33,15 @@ export const cartReducer = (
         const index = cart.findIndex(item => item.id === actions.payload.newCart.id)
         if (index >= 0) {
             if (cart[index].quantity < MAX_ITEMS) {
-                const updatedCart = [...cart]
-                updatedCart[index].quantity++
+                const updatedCart = cart.map(item => {
+                    if(item.id === actions.payload.newCart.id){
+                        return {
+                            ...item,
+                            quantity: item.quantity++   
+                        }
+                    }
+                    return item
+                })
                 returnState = {
                     ...state,
                     cart: updatedCart
@@ -50,38 +57,37 @@ export const cartReducer = (
         }
     }
 
-    else if(type === 'increase-to-cart') {
-        const index = cart.findIndex(item => item.id === actions.payload.item.id)
-        if (index >= 0) {
-            const cartDecreased = [...cart]
-            if(cartDecreased[index].quantity < 10){
-                cartDecreased[index].quantity++
-                returnState = {
-                    ...state,
-                    cart: cartDecreased
+    else if(type === 'increase-to-cart') {  
+        const cartIncreased = cart.map(item => {
+            if(item.id === actions.payload.item.id){
+                return {
+                    ...item,
+                    quantity: item.quantity++   
                 }
             }
+            return item
+
+        })
+        returnState = {
+            ...state,
+            cart: cartIncreased
         }
     }
 
     else if(type === 'decrease-to-cart') {
-        const index = cart.findIndex(item => item.id === actions.payload.item.id)
-        if (index >= 0) {
-            const cartDecreased = [...cart]
-            cartDecreased[index].quantity--
-            if (cartDecreased[index].quantity === 0) {
-                const cartDelete = cart.filter(item => item.quantity >= 1)
-                returnState = {
-                    ...state,
-                    cart: cartDelete
+        const cartDecreased = cart.map(item => {
+            if(item.id === actions.payload.item.id){
+                return {
+                    ...item,
+                    quantity: item.quantity-- 
                 }
             }
-            else {
-                returnState = {
-                    ...state,
-                    cart: cartDecreased
-                }
-            }
+            return item
+
+        })
+        returnState = {
+            ...state,
+            cart: cartDecreased
         }
     }
     
